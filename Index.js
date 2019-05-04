@@ -1,4 +1,4 @@
-const ContextLoader = require("./ContextLoader");
+const ContextLoader = require("./src/main/node/ContextLoader");
 
 const start = new Date().getTime();
 
