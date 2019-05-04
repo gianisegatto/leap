@@ -2,8 +2,6 @@ const fs = require("fs");
 const ComponentScan = require("./ComponentScan");
 const ClassFactory = require("./ClassFactory");
 
-const PATH = process.cwd() + "/test/";
-
 class ContextLoader {
 
     constructor() {
@@ -11,9 +9,9 @@ class ContextLoader {
         this.classFactory = new ClassFactory();
     }
 
-    load() {
+    load(directory) {
 
-        const components = this.componentScan.scan(PATH);
+        const components = this.componentScan.scan(directory);
 
         const instances = this.classFactory.createInstances(components);
 

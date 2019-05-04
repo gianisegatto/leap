@@ -10,10 +10,9 @@ function getParams(params, instances) {
 
     if (params) {
         params.forEach(param => {
-            const tempInstances = instances.filter(instance => instance.getName().toLowerCase() == param.toLowerCase())
-                .map(instance => instance.getInstance());
-            if (tempInstances.length > 0) {
-                paramInstances.push(tempInstances[0]);
+            const tempInstances = instances[param.toLowerCase()];
+            if (tempInstances) {
+                paramInstances.push(tempInstances);
             }
         });
     }
@@ -21,14 +20,18 @@ function getParams(params, instances) {
     return paramInstances;
 }
 
-function getCreatedInstances(fileContextList) {
-    return fileContextList.filter(fileContext => fileContext.getInstance() !== null)
-        .map(fileContext => new InstanceContext(fileContext.getName(), fileContext.getInstance()))
-}
-
-function parseToMap(map, fileContext) {
+function toMap(map, fileContext) {
     map[fileContext.getName()] = fileContext.getInstance();
     return map;
+}
+
+function getCreatedInstances(fileContextList) {
+    return fileContextList
+        .filter(fileContext => fileContext.getInstance() !== null)
+        .reduce((map, fileContext) => {
+            map[fileContext.getName().toLowerCase()] = fileContext.getInstance();
+            return map;
+        }, {});
 }
 
 class ClassFactory {
@@ -47,7 +50,7 @@ class ClassFactory {
                     pendingInstances = true;
                 } else {
                     const instance = createInstance(fileContext, paramInstances);
-                    instances.push(new InstanceContext(fileContext.getName(), instance));
+                    instances[fileContext.getName().toLowerCase()] = instance;
                     fileContext.setInstance(instance);
                 }
             }
@@ -57,7 +60,7 @@ class ClassFactory {
             this.createInstances(fileContextList);
         }
 
-        return fileContextList.reduce(parseToMap, {});
+        return fileContextList.reduce(toMap, {});
     }
 }
 
