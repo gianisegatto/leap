@@ -1,4 +1,4 @@
-const FileContext = require("./FileContext");
+const FileContext = require("./Component");
 
 const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 const ARGUMENT_NAMES = /([^\s,]+)/g;
