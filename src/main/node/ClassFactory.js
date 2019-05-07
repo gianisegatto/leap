@@ -10,9 +10,9 @@ function getParams(params, instances) {
 
     if (params) {
         params.forEach(param => {
-            const tempInstances = instances[param.toLowerCase()];
-            if (tempInstances) {
-                paramInstances.push(tempInstances);
+            const instance = instances[param.toLowerCase()];
+            if (instance) {
+                paramInstances.push(instance);
             }
         });
     }
