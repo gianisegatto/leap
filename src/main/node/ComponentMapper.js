@@ -1,6 +1,7 @@
 const FileContext = require("./Component");
 
 const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+// TODO this regex should cover only constructors and ignore functions
 const ARGUMENT_NAMES = /([^\s,]+)/g;
 
 function getConstructorParameters(func) {
@@ -13,13 +14,15 @@ class ComponentMapper {
 
     map(path, file) {
 
-        const fileInstance = require(path + file);
+        const fullPath = path + file;
+
+        const fileInstance = require(fullPath);
 
         const property = Object.getOwnPropertyDescriptors(fileInstance);
 
         const parameters = getConstructorParameters(property.prototype.value.constructor);
 
-        return new FileContext(file.substring(0, file.length -3), fileInstance, parameters);
+        return new FileContext(file.substring(0, file.length -3), fullPath, fileInstance, parameters);
     }
 }
 

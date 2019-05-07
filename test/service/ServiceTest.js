@@ -1,14 +1,14 @@
 class ServiceTest {
 
-    constructor(testClass, anotherToInject) {
-        this.testClass = testClass;
+    constructor(anotherToInject, database) {
         this.anotherToInject = anotherToInject;
+        this.database = database;
     }
 
     run() {
         console.log("running ServiceTest");
-        this.testClass.run();
         this.anotherToInject.run();
+        this.database.query("SELECT test");
     }
 }
 

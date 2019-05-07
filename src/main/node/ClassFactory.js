@@ -1,7 +1,5 @@
-const InstanceContext = require("./InstanceContext");
-
-function createInstance(fileContext, params) {
-    return Reflect.construct(fileContext.getPreInstance(), params);
+function createInstance(component, params) {
+    return Reflect.construct(component.getPreInstance(), params);
 }
 
 function getParams(params, instances) {
@@ -19,48 +17,48 @@ function getParams(params, instances) {
 
     return paramInstances;
 }
-
-function toMap(map, fileContext) {
-    map[fileContext.getName()] = fileContext.getInstance();
+function toMap(map, component) {
+    map[component.getName().toLowerCase()] = component.getInstance();
     return map;
 }
 
-function getCreatedInstances(fileContextList) {
-    return fileContextList
-        .filter(fileContext => fileContext.getInstance() !== null)
-        .reduce((map, fileContext) => {
-            map[fileContext.getName().toLowerCase()] = fileContext.getInstance();
-            return map;
-        }, {});
+function getCreatedInstances(components) {
+    return components
+        .filter(component => component.getInstance() !== null)
+        .reduce(toMap, {});
 }
 
 class ClassFactory {
 
-    createInstances(fileContextList) {
+    createInstances(components) {
 
         let pendingInstances = false;
 
-        const instances = getCreatedInstances(fileContextList);
+        const instances = getCreatedInstances(components);
 
-        fileContextList.forEach(fileContext => {
+        components.forEach(component => {
 
-            if (fileContext.getInstance() === null) {
-                const paramInstances = getParams(fileContext.getParams(), instances);
-                if (fileContext.getParams() != null && fileContext.getParams().length !== paramInstances.length) {
+            if (component.getInstance() === null) {
+                const paramInstances = getParams(component.getParams(), instances);
+                if (component.getParams() != null && component.getParams().length !== paramInstances.length) {
                     pendingInstances = true;
+                    component.incrementCreationAttempts();
                 } else {
-                    const instance = createInstance(fileContext, paramInstances);
-                    instances[fileContext.getName().toLowerCase()] = instance;
-                    fileContext.setInstance(instance);
+                    const instance = createInstance(component, paramInstances);
+                    instances[component.getName().toLowerCase()] = instance;
+                    component.setInstance(instance);
                 }
             }
         });
 
-        if (pendingInstances) {
-            this.createInstances(fileContextList);
+        const componentsAttempts = components
+            .filter(component => component.getCreationAttempts() >= components.length);
+
+        if (pendingInstances && componentsAttempts.length === 0) {
+            this.createInstances(components);
         }
 
-        return fileContextList.reduce(toMap, {});
+        return components;
     }
 }
 
