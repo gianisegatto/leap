@@ -1,4 +1,8 @@
 class AnotherToInject {
+
+    constructor() {
+    }
+
     run() {
         console.log("running anotherToInject");
     }

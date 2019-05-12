@@ -1,13 +1,13 @@
 const fs = require("fs");
-const ComponentScan = require("./ComponentScan");
-const ClassFactory = require("./ClassFactory");
+const ComponentScan = require("./scan/ComponentScan");
+const ComponentFactory = require("./instance/ComponentFactory");
 const PostValidator = require("./validator/PostValidator");
 
 class ContextLoader {
 
     constructor() {
         this.componentScan = new ComponentScan();
-        this.classFactory = new ClassFactory();
+        this.componentFactory = new ComponentFactory();
         this.postValidator = new PostValidator();
     }
 
@@ -15,14 +15,22 @@ class ContextLoader {
 
         const components = this.componentScan.scan(directory);
 
-        const instances = this.classFactory.createInstances(components);
+        const instances = this.componentFactory.createInstances(components);
 
-        try {
-            this.postValidator.validate(instances);
-        } catch (error) {
-            console.log(JSON.stringify(error));
+        const missingInstances = this.postValidator.validate(instances);
+        if (missingInstances.length > 0) {
+            console.error("Oh Oh 💩");
+            console.error("Something went wrong mate. The context loader failed to load " + missingInstances.length + " component(s)");
+            missingInstances.forEach(component => {
+                console.error("Cannot create component: " + component.getFullPath())
+                component.getMissingParams().forEach(param => console.log("Cannot find parameter: " + param));
+            });
             process.exit(1);
+        } else {
+            console.log("Cheers mate leap is up and running 🍻");
         }
+            
+        
 
         // const component = instances["SomeController"];
 

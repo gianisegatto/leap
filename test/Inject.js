@@ -1,6 +1,6 @@
 class Inject {
     
-    run() {
+    run(bla) {
         console.log("rodando injetado");
     }
 }
