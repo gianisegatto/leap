@@ -1,5 +1,9 @@
 class Database {
 
+    // constructor(host, port, user, pass) {
+
+    // }
+
     query(sql) {
         // console.log("query: " + sql
         //     + "host: " + this.host

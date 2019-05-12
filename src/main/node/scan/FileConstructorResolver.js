@@ -1,3 +1,4 @@
+const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 const CONSTRUCTOR_REGEX = /.*constructor\s*\((.*)\)/;
 
 class FileConstructorResolver {
@@ -5,7 +6,7 @@ class FileConstructorResolver {
     resolve(file) {
         let params = [];
 
-        const result = CONSTRUCTOR_REGEX.exec(file.toString());
+        const result = CONSTRUCTOR_REGEX.exec(file.toString().replace(STRIP_COMMENTS, ""));
 
         if (result !== null && result.length > 0 && result[1] !== "") {
             const constructorParams = result[1];

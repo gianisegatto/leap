@@ -17,12 +17,12 @@ class ContextLoader {
 
         const instances = this.componentFactory.createInstances(components);
 
-        const missingInstances = this.postValidator.validate(instances);
-        if (!missingInstances) {
+        const valid = this.postValidator.validate(instances);
+        if (valid) {
+            console.log("Cheers mate. Leap is up and running 🍻");
+        } else {
             this.postValidator.printMessage();
             process.exit(1);
-        } else {
-            console.log("Cheers mate leap is up and running 🍻");
         }
             
         // console.log(JSON.stringify(instances));

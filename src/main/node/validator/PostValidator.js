@@ -18,8 +18,8 @@ class PostValidator {
 
     printMessage() {
         console.error("Oh Oh 💩");
-        console.error("Something went wrong mate. The context loader failed to load " + missingInstances.length + " component(s)");
-        missingInstances.forEach(component => {
+        console.error("Something went wrong mate. The Leap context loader failed to load " + this.missingInstances.length + " component(s)");
+        this.missingInstances.forEach(component => {
             console.error("Cannot create component: " + component.getFullPath())
             component.getMissingParams().forEach(param => console.log("Cannot find parameter: " + param));
         });
