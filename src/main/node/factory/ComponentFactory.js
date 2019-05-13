@@ -2,8 +2,9 @@ const ParamResolver = require("./ParamsResolver");
 
 class ComponentFactory {
 
-    constructor() {
-        this.paramResolver = new ParamResolver();
+    constructor(configuration) {
+        this.paramResolver = new ParamResolver(configuration);
+        this.configuration = configuration;
     }
 
     createInstances(components) {
@@ -15,7 +16,7 @@ class ComponentFactory {
         components.forEach(component => {
 
             if (component.getInstance() === null) {
-                const paramInstances = this.paramResolver.resolve(component.getParams(), instances);
+                const paramInstances = this.paramResolver.resolve(component.getName(), component.getParams(), instances);
                 if (component.getParams().length > 0 && component.getParams().length !== paramInstances.length) {
                     pendingInstances = true;
                     updateComponent(component, paramInstances);

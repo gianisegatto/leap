@@ -1,13 +1,15 @@
 const fs = require("fs");
 const ComponentScan = require("./scan/ComponentScan");
-const ComponentFactory = require("./instance/ComponentFactory");
+const ComponentFactory = require("./factory/ComponentFactory");
 const PostValidator = require("./validator/PostValidator");
+const ConfigurationLoader = require("./configuration/ConfigurationLoader");
 
 class ContextLoader {
 
     constructor() {
         this.componentScan = new ComponentScan();
-        this.componentFactory = new ComponentFactory();
+        this.configurationLoader = new ConfigurationLoader();
+        this.componentFactory = new ComponentFactory(this.configurationLoader.load());
         this.postValidator = new PostValidator();
     }
 
@@ -24,7 +26,7 @@ class ContextLoader {
             this.postValidator.printMessage();
             process.exit(1);
         }
-            
+
         // console.log(JSON.stringify(instances));
     }
 }
