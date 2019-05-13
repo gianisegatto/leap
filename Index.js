@@ -1,11 +1,15 @@
-const ContextLoader = require("./src/main/node/ContextLoader");
+// const ContextLoader = require("./src/main/node/ContextLoader");
 
-const PATH = process.cwd() + "/test/";
+// const PATH = process.cwd() + "/test/";
 
-const start = new Date().getTime();
+// const start = new Date().getTime();
 
-const contextLoader = new ContextLoader();
+// const contextLoader = new ContextLoader();
 
-contextLoader.load(PATH);
+// contextLoader.load(PATH);
 
-console.log("Context loaded in: " + (new Date().getTime() - start) + " ms");
+// console.log("Context loaded in: " + (new Date().getTime() - start) + " ms");
+
+"use strict";
+
+module.exports = require("./src/main/node/functions");
