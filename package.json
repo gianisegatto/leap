@@ -2,10 +2,18 @@
   "name": "spring",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gianisegatto/leap.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "src/",
+    "index.js"
+  ],
   "author": "",
   "license": "ISC"
 }
