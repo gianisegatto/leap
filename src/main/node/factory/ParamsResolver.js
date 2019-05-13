@@ -1,4 +1,4 @@
-class ParamInstanceResolver {
+class ParamsResolver {
 
     resolve(params, instances) {
 
@@ -17,4 +17,4 @@ class ParamInstanceResolver {
     }
 }
 
-module.exports = ParamInstanceResolver;
+module.exports = ParamsResolver;
