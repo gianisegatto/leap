@@ -2,14 +2,14 @@ const fs = require("fs");
 const ComponentScan = require("./scan/ComponentScan");
 const ComponentFactory = require("./factory/ComponentFactory");
 const PostValidator = require("./validator/PostValidator");
-const ConfigurationLoader = require("./configuration/ConfigurationLoader");
+const EnvironmentLoader = require("leap-core").EnvironmentLoader;
 
 class ContextLoader {
 
     constructor(externalComponents) {
         this.componentScan = new ComponentScan();
-        this.configurationLoader = new ConfigurationLoader();
-        this.componentFactory = new ComponentFactory(this.configurationLoader.load());
+        this.environmentLoader = new EnvironmentLoader();
+        this.componentFactory = new ComponentFactory(this.environmentLoader.load());
         this.postValidator = new PostValidator();
         this.externalComponents = externalComponents;
     }

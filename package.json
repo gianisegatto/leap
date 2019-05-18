@@ -7,13 +7,18 @@
     "url": "https://github.com/gianisegatto/leap-context"
   },
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "files": [
     "src/",
     "index.js"
   ],
+  "dependencies": {
+    "leap-core": "github:gianisegatto/leap-core#master"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/eslint ./src/main/node/*; mocha ./src/test --recursive",
+    "coverage": "nyc --reporter=text --all mocha ./src/test --recursive",
+    "eslint": "./node_modules/.bin/eslint ./src/main/node/*"
+  },
   "author": "",
   "license": "ISC"
 }
