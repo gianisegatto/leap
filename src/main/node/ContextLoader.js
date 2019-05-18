@@ -6,12 +6,19 @@ const ConfigurationLoader = require("./configuration/ConfigurationLoader");
 
 class ContextLoader {
 
-    constructor() {
+    constructor(externalComponents) {
         this.componentScan = new ComponentScan();
         this.configurationLoader = new ConfigurationLoader();
         this.componentFactory = new ComponentFactory(this.configurationLoader.load());
         this.postValidator = new PostValidator();
+        this.externalComponents = externalComponents;
     }
+
+
+    // To load the startes I'm going to read the package.json file find everything related to leap-starter
+    // The starters are going to have a common interface to load the objects which they provides
+    // Context loader is going to pass the environment variables throught thoses interfaces to be used
+    //  for example the Datasource creation.
 
     load(directory) {
 
@@ -26,8 +33,6 @@ class ContextLoader {
             this.postValidator.printMessage();
             process.exit(1);
         }
-
-        // console.log(JSON.stringify(instances));
     }
 }
 

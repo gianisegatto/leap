@@ -1,4 +1,4 @@
-const ParamResolver = require("./ParamsResolver");
+const ParamResolver = require("./ArgsResolver");
 
 class ComponentFactory {
 

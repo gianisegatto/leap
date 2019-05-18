@@ -1,5 +1,5 @@
 const Component = require("../domain/Component");
-const ConstructorResolver = require("./FileConstructorResolver");
+const ConstructorResolver = require("./ParamDiscovery");
 
 class ComponentMapper {
 
@@ -15,7 +15,7 @@ class ComponentMapper {
 
         const property = Object.getOwnPropertyDescriptors(fileInstance, "constructor");
 
-        const parameters = this.constructorResolver.resolve(property.prototype.value.constructor);
+        const parameters = this.constructorResolver.discover(property.prototype.value.constructor);
 
         return new Component(file.substring(0, file.length -3), fullPath, fileInstance, parameters);
     }
