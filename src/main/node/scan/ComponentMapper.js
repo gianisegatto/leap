@@ -1,4 +1,4 @@
-const Component = require("../domain/Component");
+const Component = require("leap-core").Component;
 const ConstructorResolver = require("./ParamDiscovery");
 
 class ComponentMapper {
