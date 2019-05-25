@@ -24,9 +24,9 @@ class ContextLoader {
 
         const components = this.componentScan.scan(directory);
 
-        components.concat(this.externalComponents);
+        const mergedComponents = components.concat(this.externalComponents);
 
-        const instances = this.componentFactory.createInstances(components);
+        const instances = this.componentFactory.createInstances(mergedComponents);
 
         const valid = this.postValidator.validate(instances);
         if (valid) {
