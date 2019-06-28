@@ -22,8 +22,8 @@ class ComponentFactory {
                     updateComponent(component, paramInstances);
                 } else {
                     const instance = createInstance(component, paramInstances);
-                    instances[component.getName().toLowerCase()] = createTempInstance(component);
                     component.setInstance(instance);
+                    instances[component.getName().toLowerCase()] = createTempInstance(component);
                 }
             }
         });
