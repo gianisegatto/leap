@@ -31,6 +31,7 @@ class ContextLoader {
         const valid = this.postValidator.validate(instances);
         if (valid) {
             console.log("Cheers mate. Leap is up and running 🍻");
+            return instances;
         } else {
             this.postValidator.printMessage();
             process.exit(1);
