@@ -58,9 +58,13 @@ function toMap(map, component) {
 }
 
 function getCreatedInstances(components) {
-    return components
-        .filter(component => component.getInstance() !== null)
-        .reduce(toMap, {});
+    if (components) {
+        return components
+            .filter(component => component.getInstance() !== null)
+            .reduce(toMap, {});
+    } else {
+        return [];
+    }
 }
 
 function updateComponent(component, paramInstances) {

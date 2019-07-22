@@ -1,6 +1,6 @@
 class AnotherToInject {
 
-    constructor() {
+    constructor(foo) {
     }
 
     run() {
