@@ -4,18 +4,17 @@ I'm here to help the leap framework stack takes care of inversion control and de
 
 Why did you do it?
 =================
-As Java developer used to work with spring framework and getting passionated to NodeJs and JavaScript I was missing standards and the beuty of sring framework taking care of dependency injection and autowiring the components of my application.
+As Java developer used to work with spring framework and getting passionated to NodeJs and JavaScript I was missing standards and the beauty of spring framework taking care of dependency injection and autowiring the components of my application.
 I was looking for similar solutions but I didn't find any framework like spring for NodeJs.
 
 Restrictions
 =================
-This framework is for developers which prefers Classes rather than Functions. It only works for classes and do the autowiring based on constructor parameters.
+This framework is for developers which prefers Classes rather than Functions. It only works for classes and does the autowiring based on constructor parameters.
 The constructor parameters needs to match the Classes from you application and your .js files must have the same name as your Classes.
 
 ### For example:
 
-Let's suppos win your application o have the following files:
-root
+Let's suppose your application has the following files:
 ```
 ----> js
 --------> Foo.js
@@ -72,12 +71,12 @@ module.exports = Foo;
 ```js
 class Bar {
 
-    constructor(any) {
+    constructor(bla) {
 
     }
 }
 ```
-Given this example your application context will not work because in your application there is no any Class.
+Given this example your application context will not work because in your application there is no Bla Class.
 
 How to use me:
 =================
@@ -101,16 +100,11 @@ Otherwise if something is wrong.
 You should see a message like this:
 ```bash
 Oh Oh 💩
-Something went wrong mate. The Leap context loader failed to load 4 component(s)
-Cannot create component: /your-application/AnotherToInject.js
-Cannot find parameter: foo
-Cannot create component: /your-application/Component.js
-Cannot find parameter: anotherToInject
-Cannot find parameter: serviceTest
-Cannot create component: /your-application/controller/SomeController.js
-Cannot find parameter: serviceTest
-Cannot create component: /your-application/service/ServiceTest.js
-Cannot find parameter: anotherToInject
+Something went wrong mate. The Leap context loader failed to load 2 component(s)
+Cannot create component: /example/Bar.js
+Cannot find parameter: bla
+Cannot create component: /example/Foo.js
+Cannot find parameter: bar
 ```
 
 I hope this doc can help you a bit and I'll do my best to bring more details.

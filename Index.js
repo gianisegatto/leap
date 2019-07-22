@@ -1,15 +1,3 @@
-const ContextLoader = require("./src/main/node/ContextLoader");
+"use strict";
 
-const PATH = process.cwd() + "/test/";
-
-// const start = new Date().getTime();
-
-const contextLoader = new ContextLoader();
-
-contextLoader.load(PATH);
-
-// console.log("Context loaded in: " + (new Date().getTime() - start) + " ms");
-
-// "use strict";
-
-// module.exports = require("./src/main/node/functions");
+module.exports = require("./src/main/node/functions");
