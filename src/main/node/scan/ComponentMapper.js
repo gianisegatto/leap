@@ -17,7 +17,7 @@ class ComponentMapper {
 
         const parameters = this.constructorResolver.discover(property.prototype.value.constructor);
 
-        return new Component(file.substring(0, file.length -3), fullPath, fileInstance, parameters);
+        return new Component(fileInstance.name, file.substring(0, file.length -3), fullPath, fileInstance, parameters);
     }
 }
 
