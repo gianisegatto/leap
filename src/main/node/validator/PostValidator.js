@@ -30,4 +30,4 @@ module.exports = PostValidator;
 
 function filterNoInstanceAndAttempts(component, numberOfComponents) {
     return component.getCreationAttempts() >= numberOfComponents && component.getInstance() === null;
-};
+}

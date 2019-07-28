@@ -7,11 +7,8 @@ class ComponentScan {
     constructor() {
         this.componentMapper = new ComponentMapper();
     }
-
-    // TODO this method needs to be improved to use async readdir
+    
     scan(directory) {
-
-        directory = directory ;
 
         let components = [];
         if (directory.includes(RESOURCES_FOLDER)) {
