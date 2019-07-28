@@ -17,7 +17,7 @@ class ArgsResolver {
                     try {
                         const property = this.configuration[name.toLowerCase()][param];
                         if (property !== null && property !== undefined) {
-                            paramInstances.push(property);
+                            paramInstances.push({ name: param, instance: property});
                         }
                     } catch (exception) {
                         // ignoring for now. Should find a better way

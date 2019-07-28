@@ -42,7 +42,7 @@ class Bar {
     }
 }
 
-module.exports = Foo;
+module.exports = Bar;
 
 ```
 Given this example your application context is going to work very well because the framework is going to create first the instace of Bar and during the Foo instance creation will match the instance of Bar with the the Foo constructor arguments bar.
@@ -82,6 +82,8 @@ class Bar {
 
     }
 }
+
+module.exports = Bar;
 ```
 Given this example your application context will not work because there is no Bla Class.
 
@@ -125,6 +127,8 @@ class Blar {
 
     }
 }
+
+module.exports = Blar;
 ```
 Given this example your application context will not work because the Bar.js file doesn't match to the Blar class name.
 
@@ -168,6 +172,8 @@ class Bar {
 
     }
 }
+
+module.exports = Bar;
 ```
 #### This is the /js/folder/Bar.js class:
 ```js
@@ -177,6 +183,8 @@ class Bar {
 
     }
 }
+
+module.exports = Bar;
 ```
 
 Given this example your application context will not work because the Bar file twice.
@@ -188,6 +196,61 @@ Something went wrong mate. The Leap context loader failed to load 2 duplicated c
 The following files have the same name. To make the context load properly you should rename the files!
 File: /js/Bar.js
 File: /js/folder/Bar.js
+```
+
+# The last but not the least
+Sometimes your classes receives a simple property as parameter. For example you have a server class which needs do receive the port number to make your server starts to listen to that port.
+Using leap context it's quite simple, you just need to follow this project structure recipe:
+
+root
+```
+----> src
+--------> main
+-------------> node
+------------------> Foo.js
+------------------> Bar.js
+------------------> Server.js
+------------------> folder
+-------------------------> Bar.js
+-------------> resources
+-----------------------> application.json
+```
+Let's take a look at the Server.js file:
+#### This is the /src/main/node/Server.js file:
+```js
+class Server {
+
+    constructor(port) {
+        console.log("Port: " + port);
+    }
+}
+
+module.exports = Server;
+```
+This class is just saying a need something called port and as you saw above on the project structure there is not file called Port. So based on the previous examples it should fail to load, but not. Let's take a look to the new file application.json:
+#### This is the /src/main/resources/application.json file:
+```json
+{
+    "server": {
+        "port": 8080
+    }
+}
+```
+When you need to load a simple propety like the Server Port you just need an application.json file following the example above. The framework is going to pick the class name + the property name and try to find it at the application.json file.
+On the example we are using would be:
+```js
+ class Server { // class name to be used at the application.json file
+
+    constructor(port) { // constructor argument to be used at the application.json file
+        console.log("Port: " + port);
+    }
+}   
+```
+Running the example above you should see from your console:
+```bash
+Configuration file not found: /Users/gianisegatto/workEnvironment/node/leap-context/test/example/src/main/resources/application-local.json ##### Ignore this line we can talke about it after
+Port: 8080 ### This is the port number injected from the application.json file server.port
+Cheers mate. Leap is up and running 🍻
 ```
 
 How to use me:

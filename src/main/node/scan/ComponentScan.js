@@ -1,5 +1,6 @@
 const fs = require("fs");
 const ComponentMapper = require("./ComponentMapper");
+const RESOURCES_FOLDER = "src/main/resources/"
 
 class ComponentScan {
 
@@ -10,7 +11,12 @@ class ComponentScan {
     // TODO this method needs to be improved to use async readdir
     scan(directory) {
 
+        directory = directory ;
+
         let components = [];
+        if (directory.includes(RESOURCES_FOLDER)) {
+            return components;
+        }
 
         const results = fs.readdirSync(directory);
 
