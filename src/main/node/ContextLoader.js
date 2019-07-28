@@ -12,7 +12,10 @@ class ContextLoader {
         this.componentFactory = new ComponentFactory([]);
         this.preValidator = new PreValidator();
         this.postValidator = new PostValidator();
-        this.externalComponents = externalComponents;
+        this.externalComponents = [];
+        if (externalComponents) {
+            this.externalComponents = externalComponents;
+        }
     }
 
     load(directory) {
@@ -28,10 +31,9 @@ class ContextLoader {
             process.exit(1);
         }
 
-        const mergedComponents = components.concat();
+        const mergedComponents = components.concat(this.externalComponents);
 
-        const instances = this.componentFactory.createInstances(mergedComponents)
-                                               .filter(component => component !== undefined && component !== null);
+        const instances = this.componentFactory.createInstances(mergedComponents);
 
         const valid = this.postValidator.validate(instances);
         if (valid) {
