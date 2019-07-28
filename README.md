@@ -248,7 +248,7 @@ On the example we are using would be:
 ```
 Running the example above you should see from your console:
 ```bash
-Configuration file not found: /Users/gianisegatto/workEnvironment/node/leap-context/test/example/src/main/resources/application-local.json ##### Ignore this line we can talke about it after
+Configuration file not found: /Users/gianisegatto/workEnvironment/node/leap-context/test/example/src/main/resources/application-local.json ##### Ignore this line we can talk about it after
 Port: 8080 ### This is the port number injected from the application.json file server.port
 Cheers mate. Leap is up and running 🍻
 ```
