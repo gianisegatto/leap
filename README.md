@@ -1,5 +1,5 @@
 # Alert
-This project is still under construction
+This project is still under construction. We are getting there!
 
 Welcome to leap context!
 ===================
