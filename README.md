@@ -2,15 +2,54 @@ Welcome to leap context!
 ===================
 I'm here to help the leap framework stack takes care of inversion control and dependency injection.
 
-Why did you do it?
-=================
-As Java developer used to work with spring framework and getting passionated to NodeJs and JavaScript I was missing standards and the beauty of spring framework taking care of dependency injection and autowiring the components of my application.
-I was looking for similar solutions but I didn't find any framework like spring for NodeJs.
+```js
+const ContextLoader = require("leap-context").ContextLoader;
 
-Restrictions
-=================
-This framework is for developers which prefers Classes rather than Functions. It only works for classes and does the autowiring based on constructor arguments.
-The constructor arguments needs to match the Classes from you application and your .js files must have the same name as the Classes.
+// The path must be pointing to the directory where are the files to use dependency injection
+const PATH = process.cwd() + "/src";
+
+const contextLoader = new ContextLoader();
+
+const context = contextLoader.load(PATH);
+
+context.forEach(component => console.log(component));
+
+```
+If everything in your application is right you should get back from contextLoader.load a list of instancies of your application classes.
+
+You should see a message like this:
+```bash
+Cheers mate. Leap is up and running 🍻
+```
+
+## Application structure
+The best way leap-context works with is following the example below, but you can have a bit more freedom if you don't want to follow it.
+```
+----> src
+--------> main
+-------------> node
+------------------> Router.js
+------------------> Repository.js
+------------------> Service.js
+-------------> resources
+-----------------------> application.json
+-----------------------> application-local.json
+-----------------------> application-development.json
+index.js
+```
+## Installation
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/).
+
+Before installing, [download and install Node.js](https://nodejs.org/en/download/).
+Node.js 0.10 or higher is required.
+
+Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+
+```bash
+npm install leap-context --save
+```
 
 ### Correct application example:
 
@@ -52,6 +91,11 @@ You should see a message like this:
 ```bash
 Cheers mate. Leap is up and running 🍻
 ```
+
+Restrictions
+=================
+This framework is for developers which prefers Classes rather than Functions. It only works for classes and does the autowiring based on constructor arguments.
+The constructor arguments needs to match the Classes from you application and your .js files must have the same name as the Classes.
 
 ### Wrong application example 1:
 On this example we are going to simulate an application which has a component that needs a not declared (not found) component
@@ -198,7 +242,7 @@ File: /js/Bar.js
 File: /js/folder/Bar.js
 ```
 
-# The last but not the least
+# The last but not least
 Sometimes your classes receives a simple property as parameter. For example you have a server class which needs do receive the port number to make your server starts to listen to that port.
 Using leap context it's quite simple, you just need to follow this project structure recipe:
 
@@ -253,23 +297,10 @@ Port: 8080 ### This is the port number injected from the application.json file s
 Cheers mate. Leap is up and running 🍻
 ```
 
-How to use me:
+Why did you do it?
 =================
-```js
-const ContextLoader = require("leap-context").ContextLoader;
-
-const PATH = process.cwd() + "/the-root-path-of-your-app/";
-
-const contextLoader = new ContextLoader();
-
-const context = contextLoader.load(PATH);
-```
-If everything in your application is right you should get back from contextLoader.load a list of instancies of your application classes.
-
-You should see a message like this:
-```bash
-Cheers mate. Leap is up and running 🍻
-```
+As Java developer used to work with spring framework and getting passionated to NodeJs and JavaScript I was missing standards and the beauty of spring framework taking care of dependency injection and autowiring the components of my application.
+I was looking for similar solutions but I didn't find any framework like spring for NodeJs.
 
 I hope this doc can help you a bit and I'll do my best to bring more details.
 
