@@ -1,6 +1,7 @@
 const fs = require("fs");
 const ComponentMapper = require("./ComponentMapper");
 const RESOURCES_FOLDER = "src/main/resources/"
+const TEST_FILES = "test"
 
 class ComponentScan {
 
@@ -11,7 +12,7 @@ class ComponentScan {
     scan(directory) {
 
         let components = [];
-        if (directory.includes(RESOURCES_FOLDER)) {
+        if (directory.includes(RESOURCES_FOLDER) || directory.includes(TEST_FILES)) {
             return components;
         }
 
